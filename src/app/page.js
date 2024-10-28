@@ -44,7 +44,7 @@ export default function Home() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-
+  
     try {
       const response = await fetch('/api/facebook/', {
         method: 'POST',
@@ -53,15 +53,15 @@ export default function Home() {
         },
         body: JSON.stringify({
           message,
-          imageBase64: base64String || undefined
-        })
+          imageBase64: base64String || undefined, // Send base64 image if available
+        }),
       });
-
+  
       if (!response.ok) {
         console.error('Error creating post:', response.statusText);
         throw new Error('Failed to create post');
       }
-
+  
       alert('Post created successfully!');
       setMessage('');
       setSelectedFile(null);
@@ -74,6 +74,7 @@ export default function Home() {
       setIsLoading(false);
     }
   };
+  
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-blue-50 to-white py-12 px-4">
